@@ -1,7 +1,7 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "PEG Grammar",
-	"scopeName": "source.peg",
+	"name": "LPegRex Grammar",
+	"scopeName": "source.lpegrex",
 	"patterns": [
 		{
 			"include": "#keywords"
@@ -17,46 +17,57 @@
 		"keywords": {
 			"patterns": [
 				{
-					"name": "constant.other.peg",
+					"name": "constant.other.lpegrex",
 					"match": "(\\!|\\*|\\?|\\+)"
 				},
 				{
-					"name": "constant.other.peg",
-					"match": "(\\<\\-)"
+					"name": "constant.other.lpegrex",
+					"match": "(\\<--)"
 				}
 			]
 		},
 		"strings": {
 			"patterns": [
 				{
-					"name": "string.regexp.peg",
+					"name": "string.regexp.lpegrex",
 					"begin": "\\[",
 					"end": "]",
 					"patterns": [
 						{
-							"name": "constant.character.escape.peg",
+							"name": "constant.character.escape.lpegrex",
 							"match": "\\\\."
 						}
 					]
 				},
 				{
-					"name": "string.quoted.double.peg",
-					"begin": "\"",
-					"end": "\"",
-					"patterns": [
-						{
-							"name": "constant.character.escape.peg",
-							"match": "\\\\."
-						}
-					]
-				},
-				{
-					"name": "string.quoted.single.peg",
+					"name": "string.quoted.single.lpegrex",
 					"begin": "'",
 					"end": "'",
 					"patterns": [
 						{
-							"name": "constant.character.escape.peg",
+							"name": "constant.character.escape.lpegrex",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "string.quoted.double.lpegrex",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"name": "constant.character.escape.lpegrex",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "string.quoted.other.lpegrex",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"name": "constant.character.escape.lpegrex",
 							"match": "\\\\."
 						}
 					]
@@ -66,19 +77,19 @@
 		"constants": {
 			"patterns": [
 				{
-					"name": "storage.type.peg",
+					"name": "storage.type.lpegrex",
 					"match": "\\b([A-Z][A-Z0-9_]*)\\b"
 				},
 				{
-					"name": "constant.numeric.peg",
+					"name": "constant.numeric.lpegrex",
 					"match": "\\b([a-zA-Z][a-zA-Z0-9_]*)\\b"
 				},
 				{
-					"name": "comment.peg",
-					"match": "#.*\\n"
+					"name": "comment.lpegrex",
+					"match": "--.*\\n"
 				},
 				{
-					"name": "variable.parameter.peg",
+					"name": "variable.parameter.lpegrex",
 					"match": "/"
 				}
 			]
