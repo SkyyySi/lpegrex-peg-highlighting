@@ -1,5 +1,0 @@
-Rule
-
-GROUP <-- ()
-
-NEGATIVE <-- !Rule
