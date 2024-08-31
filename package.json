@@ -10,7 +10,7 @@
 	"license": "MIT",
 	"publisher": "SkyyySi",
 	"engines": {
-		"vscode": "^1.90.0"
+		"vscode": "^1.10.0"
 	},
 	"categories": [
 		"Programming Languages"
