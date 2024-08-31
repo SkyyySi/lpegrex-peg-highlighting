@@ -1,31 +1,35 @@
 {
-    "name": "pegen-peg",
-    "displayName": "Pegen PEG Grammar Highlighting",
-    "description": "Syntax highlighting for the PEG syntax that the pegen project uses",
-    "version": "0.2.0",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/lysnikolaou/pegen-peg-highlighting"
-    },
-    "license": "MIT",
-    "publisher": "lysnikolaou",
-    "engines": {
-        "vscode": "^1.43.0"
-    },
-    "categories": [
-        "Programming Languages"
-    ],
-    "contributes": {
-        "languages": [{
-            "id": "pegen",
-            "aliases": ["Pegen PEG", "pegen"],
-            "extensions": [".gram"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "pegen",
-            "scopeName": "source.gram",
-            "path": "./syntaxes/pegen.tmLanguage.json"
-        }]
-    }
+	"name": "lpegrex-peg",
+	"displayName": "LPegRex PEG Grammar Highlighting",
+	"description": "VS Code Syntax Highlighting for the PEG syntax used by LPegRex.",
+	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/SkyyySi/lpegrex-peg-highlighting"
+	},
+	"license": "MIT",
+	"publisher": "SkyyySi",
+	"engines": {
+		"vscode": "^1.90.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"contributes": {
+		"languages": [
+			{
+				"id": "lpegrex",
+				"aliases": ["LPegRex Grammar", "LPeg re Grammar"],
+				"extensions": [".lpegrex", ".lpegre"],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "lpegrex",
+				"scopeName": "source.lpegrex",
+				"path": "./syntaxes/lpegrex.tmLanguage.json"
+			}
+		]
+	}
 }

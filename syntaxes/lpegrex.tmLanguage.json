@@ -1,0 +1,79 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/478ad124a21933cd4b0b65f1ee7ee18ee1f87473/tmlanguage.json",
+	"name": "PEG Grammar",
+	"scopeName": "source.peg",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#constants"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "constant.other.peg",
+				"match": "(\\!|\\*|\\?|\\+)"
+			},{
+				"name": "constant.other.peg",
+				"match": "(\\<\\-)"
+			}]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"name": "string.regexp.peg",
+					"begin": "\\[",
+					"end": "]",
+					"patterns": [
+						{
+							"name": "constant.character.escape.peg",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "string.quoted.double.peg",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"name": "constant.character.escape.peg",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "string.quoted.single.peg",
+					"begin": "'",
+					"end": "'",
+					"patterns": [
+						{
+							"name": "constant.character.escape.peg",
+							"match": "\\\\."
+						}
+					]
+				}
+			]
+		},
+		"constants": {
+			"patterns": [{
+				"name": "storage.type.peg",
+				"match": "\\b([A-Z][A-Z0-9_]*)\\b"
+			},{
+				"name": "constant.numeric.peg",
+				"match": "\\b([a-zA-Z][a-zA-Z0-9_]*)\\b"
+			},{
+				"name": "comment.peg",
+				"match": "#.*\\n"
+			},{
+				"name": "variable.parameter.peg",
+				"match": "/"
+			}]
+		}
+	}
+}
