@@ -3,41 +3,143 @@
 	"name": "LPegRex Grammar",
 	"scopeName": "source.lpegrex",
 	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
-		},
-		{
-			"include": "#constants"
-		}
+		{ "include": "#operators" },
+		{ "include": "#string_literal" },
+		{ "include": "#keywords" },
+		{ "include": "#others" },
+		{ "include": "#errors" }
 	],
 	"repository": {
-		"keywords": {
+		"errors": {
 			"patterns": [
 				{
-					"name": "constant.other.lpegrex",
-					"match": "(\\!|\\*|\\?|\\+)"
-				},
-				{
-					"name": "constant.other.lpegrex",
-					"match": "(\\<--)"
+					"name": "invalid.illegal.lpegrex",
+					"match": "\\b[+-]?(([0-9]*\\.[0-9]+)|([0-9]+\\.[0-9]*))\\b"
 				}
 			]
 		},
-		"strings": {
+		"operators": {
 			"patterns": [
 				{
-					"name": "string.regexp.lpegrex",
-					"begin": "\\[",
-					"end": "]",
+					"match": "^(\\b(?:[a-zA-Z_-][a-zA-Z0-9_-]*)\\b)\\s*(\\<(?:==|-\\||--?))",
+					"captures": {
+						"1": {
+							"name": "variable.name.lpegrex"
+						},
+						"2": {
+							"name": "keyword.operator.lpegrex"
+						}
+					}
+				},
+				{
+					"match": "^(\\b(?:[a-zA-Z_-][a-zA-Z0-9_-]*)\\b)\\s*(:)\\s*(\\b(?:[a-zA-Z_-][a-zA-Z0-9_-]*)\\b)\\s*(\\<==)",
+					"captures": {
+						"1": {
+							"name": "variable.name.lpegrex"
+						},
+						"2": {
+							"name": "keyword.operator.lpegrex"
+						},
+						"3": {
+							"name": "variable.parameter.lpegrex"
+						},
+						"4": {
+							"name": "keyword.operator.lpegrex"
+						}
+					}
+				},
+				{
+					"match": "\\{:(\\b([a-zA-Z_-][a-zA-Z0-9_-]*)\\b:)",
+					"captures": {
+						"1": {
+							"name": "keyword.operator.lpegrex"
+						}
+					}
+				},
+				{
+					"name": "keyword.operator.lpegrex",
+					"match": "(~|-|=|\\>)\\>"
+				},
+				{
+					"name": "keyword.operator.lpegrex",
+					"match": "/"
+				},
+				{
 					"patterns": [
 						{
-							"name": "constant.character.escape.lpegrex",
-							"match": "\\\\."
+							"match": "(\\^)\\s*(\\b(?:[a-zA-Z_-][a-zA-Z0-9_-]*)\\b)",
+							"captures": {
+								"1": {
+									"name": "keyword.operator.lpegrex"
+								},
+								"2": {
+									"name": "variable.parameter.lpegrex"
+								}
+							}
+						},
+						{
+							"match": "(\\^)\\s*[+-]?([0-9+])",
+							"captures": {
+								"1": {
+									"name": "keyword.operator.lpegrex"
+								},
+								"2": {
+									"name": "constant.numeric.lpegrex"
+								}
+							}
 						}
 					]
+				},
+				{
+					"name": "support.constant.lpegrex",
+					"match": "=(\\b(?:[a-zA-Z_-][a-zA-Z0-9_-]*)\\b)"
+				},
+				{
+					"name": "keyword.operator.lpegrex",
+					"match": "(\\~\\?|\\!|\\*|\\?|\\+|\\.)"
+				}
+			]
+		},
+		"character_class": {
+			"patterns": [
+				{
+					"name": "keyword.control.lpegrex",
+					"match": "%(nl|ca|cb|ct|cn|cv|cf|cr|sp|utf8|utf8seq|ascii|tonil|totrue|tofalse|toemptytable|tochar|toutf8char|tonumber|[ACDGLPSUWXacdglpsuwx])"
+				},
+				{
+					"name": "variable.name.lpegrex",
+					"match": "%\\b([a-zA-Z_-][a-zA-Z0-9_-]*)\\b"
+				},
+				{
+					"name": "invalid.illegal.lpegrex",
+					"match": "%"
+				}
+			]
+		},
+		"string_literal": {
+			"patterns": [
+				{
+					"match": "\\[((?:\\^)?)(.*?)\\]",
+					"captures": {
+						"1": {
+							"name": "keyword.operator.lpegrex"
+						},
+						"2": {
+							"patterns": [
+								{
+									"name": "keyword.operator.lpegrex",
+									"match": "\\^"
+								},
+								{
+									"include": "#character_class"
+								},
+								{
+									"name": "constant.character.escape.lpegrex",
+									"match": "\\\\."
+								}
+							]
+						}
+					}
 				},
 				{
 					"name": "string.quoted.single.lpegrex",
@@ -46,7 +148,7 @@
 					"patterns": [
 						{
 							"name": "constant.character.escape.lpegrex",
-							"match": "\\\\."
+							"match": "\\\\[^']"
 						}
 					]
 				},
@@ -57,40 +159,102 @@
 					"patterns": [
 						{
 							"name": "constant.character.escape.lpegrex",
-							"match": "\\\\."
+							"match": "\\\\[^\"]"
 						}
 					]
 				},
 				{
 					"name": "string.quoted.other.lpegrex",
-					"begin": "\"",
-					"end": "\"",
+					"begin": "`",
+					"end": "`",
 					"patterns": [
 						{
 							"name": "constant.character.escape.lpegrex",
-							"match": "\\\\."
+							"match": "\\\\[^`]"
 						}
 					]
 				}
 			]
 		},
-		"constants": {
+		"keywords": {
 			"patterns": [
 				{
-					"name": "storage.type.lpegrex",
-					"match": "\\b([A-Z][A-Z0-9_]*)\\b"
+					"name": "keyword.control.lpegrex",
+					"match": "(tonil|tofalse|totrue|tonumber|tochar|toutf8char)"
 				},
 				{
-					"name": "constant.numeric.lpegrex",
-					"match": "\\b([a-zA-Z][a-zA-Z0-9_]*)\\b"
+					"name": "keyword.control.lpegrex",
+					"match": "(foldleft|foldright|rfoldleft|rfoldright)"
 				},
 				{
-					"name": "comment.lpegrex",
+					"name": "support.function.lpegrex",
+					"match": "(KEYWORD|TOKEN|NAME_SUFFIX|SKIP|EXTRA_TOKENS)"
+				}
+			]
+		},
+		"others": {
+			"patterns": [
+				{ "include": "#character_class" },
+				{
+					"patterns": [
+						{
+							"name": "support.class.lpegrex",
+							"match": "@\\b([a-zA-Z_-][a-zA-Z0-9_-]*)\\b"
+						},
+						{
+							"name": "string.quoted.other.lpegrex",
+							"match": "@('[^']*'|\"[^\"]*\"|`[^`]*`)"
+						},
+						{
+							"name": "invalid.illegal.lpegrex",
+							"match": "@"
+						}
+					]
+				},
+				{
+					"patterns": [
+						{
+							"name": "invalid.illegal.lpegrex",
+							"match": "\\$\\b(([0-9]*\\.[0-9]+)|([0-9]+\\.[0-9]*))\\b"
+						},
+						{
+							"name": "constant.numeric.lpegrex",
+							"match": "\\$\\b([0-9]+)\\b"
+						},
+						{
+							"name": "variable.name.lpegrex",
+							"match": "\\$\\b([a-zA-Z_-][a-zA-Z0-9_-]*)\\b"
+						},
+						{
+							"name": "string.quoted.other.lpegrex",
+							"match": "\\$('[^']*'|\"[^\"]*\"|`[^`]*`)"
+						},
+						{
+							"name": "keyword.operator.lpegrex",
+							"match": "\\${([^\\}]*)}",
+							"captures": {
+								"1": {
+									"name": "invalid.illegal.lpegrex"
+								}
+							}
+						},
+						{
+							"name": "invalid.illegal.lpegrex",
+							"match": "\\$"
+						}
+					]
+				},
+				{
+					"name": "variable.name.lpegrex",
+					"match": "\\b([a-zA-Z_-][a-zA-Z0-9_-]*)\\b"
+				},
+				{
+					"name": "comment.line.double-dash.lpegrex",
 					"match": "--.*\\n"
 				},
 				{
-					"name": "variable.parameter.lpegrex",
-					"match": "/"
+					"name": "constant.numeric.lpegrex",
+					"match": "\\b[+-]?([0-9]+)\\b"
 				}
 			]
 		}
